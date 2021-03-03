@@ -1,14 +1,16 @@
-import websocket, json, pprint, talib, numpy
+# import websocket, json, pprint, talib, numpy
+import websocket, json, pprint, numpy
 import config
 from binance.client import Client
 from binance.enums import *
+from datetime import datetime
 
-SOCKET = "wss://stream.binance.com:9443/ws/ethusdt@kline_1m"
+SOCKET = "wss://stream.binance.com:9443/ws/xvsusdt@kline_1d"
 
 RSI_PERIOD = 14
 RSI_OVERBOUGHT = 70
 RSI_OVERSOLD = 30
-TRADE_SYMBOL = 'ETHUSD'
+TRADE_SYMBOL = 'XVSUSDT'
 TRADE_QUANTITY = 0.05
 
 closes = []
@@ -41,6 +43,45 @@ def on_message(ws, message):
     json_message = json.loads(message)
     pprint.pprint(json_message)
 
+
+    print("--------------------------------------------")
+    radio = json_message['k']
+    
+    radioc = float(radio['c'])
+    radioo = float(radio['o'])
+    radioh = float(radio['h'])
+    radiol = float(radio['l'])
+    
+    print("Current Close Price is {}".format(radioc))
+    print("Current Open Price is {}".format(radioo))
+    print("Current High Price is {}".format(radioh))
+    print("Current Low Price is {}".format(radiol))
+    
+    print("--------------------------------------------")
+    timestampt = int(radio['t'])/1000
+    date_timet = datetime.fromtimestamp(timestampt)
+
+    timestamptt = int(radio['T'])/1000
+    date_timett = datetime.fromtimestamp(timestamptt)
+
+    print ('Opening date/time: {}'.format(date_timet))
+    print ('Closing date/time: {}'.format(date_timett))
+    print("--------------------------------------------")
+
+    ratiok = ( float(radio['c']) - float(radio['l']) ) / ( float(radio['h']) - float(radio['l']) ) * 100    
+    
+    if ratiok < 10:
+        print("Current Ratio from Low is -------------------------------------------------------- {}".format(ratiok))
+    else:
+        print("Current Ratio from Low is {}".format(ratiok))
+         
+    ratiok = ( float(radio['h']) - float(radio['l']) ) / float(radio['h']) * 100    
+    print("Maximum Loss Ratio from High is {}".format(ratiok))
+    
+    ratiok = ( float(radio['h']) - float(radio['l']) ) / float(radio['l']) * 100    
+    print("Maximum Profit Ratio from Low is {}".format(ratiok))
+    
+    
     candle = json_message['k']
 
     is_candle_closed = candle['x']
