@@ -53,9 +53,10 @@ def on_message(ws, message):
     radiol = float(radio['l'])
     
     print("Current Close Price is {}".format(radioc))
+    print("Current Low Price is {}".format(radiol))
+    print("--------------------------------------------")
     print("Current Open Price is {}".format(radioo))
     print("Current High Price is {}".format(radioh))
-    print("Current Low Price is {}".format(radiol))
     
     print("--------------------------------------------")
     timestampt = int(radio['t'])/1000
