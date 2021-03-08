@@ -1,5 +1,5 @@
-import pandas as pd #pip install pandas
-
+from readdata_binance import *
+from trading_environment import *
 
 df = pd.read_csv('12-coins-Jan21_Jan21')
 
