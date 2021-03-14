@@ -52,11 +52,9 @@ def on_message(ws, message):
     radioh = float(radio['h'])
     radiol = float(radio['l'])
     
-    print("Current Close Price is {}".format(radioc))
-    print("Current Low Price is {}".format(radiol))
-    print("--------------------------------------------")
-    print("Current Open Price is {}".format(radioo))
-    print("Current High Price is {}".format(radioh))
+    print("Current Close Price is {0} ........................................... Current Low Price is {1}".format(radioc, radiol))
+    print("----------------------------------------------------------------------------------------")
+    print("Current Open Price is {n} ........................................... Current High Price is {s}".format(n=radioo, s=radioh))
     
     print("--------------------------------------------")
     timestampt = int(radio['t'])/1000
@@ -65,9 +63,8 @@ def on_message(ws, message):
     timestamptt = int(radio['T'])/1000
     date_timett = datetime.fromtimestamp(timestamptt)
 
-    print ('Opening date/time: {}'.format(date_timet))
-    print ('Closing date/time: {}'.format(date_timett))
-    print("--------------------------------------------")
+    print ('Opening date/time: {} ............................. Closing date/time: {}'.format(date_timet, date_timett))
+    print("----------------------------------------------------------------------------------------")
 
     ratiok = ( float(radio['c']) - float(radio['l']) ) / ( float(radio['h']) - float(radio['l']) ) * 100    
     
@@ -81,7 +78,8 @@ def on_message(ws, message):
     
     ratiok = ( float(radio['h']) - float(radio['l']) ) / float(radio['l']) * 100    
     print("Maximum Profit Ratio from Low is {}".format(ratiok))
-    
+    print("----------------------------------------------------------------------------------------")
+
     
     candle = json_message['k']
 
